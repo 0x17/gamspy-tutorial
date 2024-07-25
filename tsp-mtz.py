@@ -30,12 +30,7 @@ def solve_model(locations, distances):
 
     tsp_mtz.solve(output=sys.stdout)
     print(f'Optimal tour has length of approx. {round(tsp_mtz.objective_value / 1000, 2)} km')
-
-    arcs = []
-    for rec in x.records.values.tolist():
-        if rec[2] > 0:
-            arcs.append((int(rec[0]), int(rec[1])))
-    return arcs
+    return [k for k, v in x.toDict().items() if v > 0.0]
 
 
 def succ(arcs, loc_num):
