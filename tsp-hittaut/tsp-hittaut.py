@@ -1,7 +1,6 @@
-import sys
-
 import yaml
 import folium
+from sys import stdout
 from gamspy import Container, Set, Alias, Equation, Sum, Model, Problem, Sense, Variable, Ord, Parameter, Card, \
     VariableType
 
@@ -28,7 +27,7 @@ def solve_model(locations, distances):
                     sense=Sense.MIN,
                     objective=Sum((i, j), d[i, j] * x[i, j]))
 
-    tsp_mtz.solve(output=sys.stdout)
+    tsp_mtz.solve(output=stdout)
     print(f'Optimal tour has length of approx. {round(tsp_mtz.objective_value / 1000, 2)} km')
     return [k for k, v in x.toDict().items() if v > 0.0]
 

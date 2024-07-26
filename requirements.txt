@@ -2,3 +2,5 @@ gamspy
 folium
 pyyaml
 requests
+graphviz
+bokeh

@@ -1,4 +1,4 @@
-import sys
+from sys import stdout
 from gamspy import Container, Variable, Equation, Model, Sense
 m = Container()
 x = Variable(m)
@@ -7,5 +7,5 @@ mod = Model(m, 'mymodel',
             equations=[e],
             sense=Sense.MIN,
             objective=x)
-mod.solve(output=sys.stdout)
+mod.solve(output=stdout)
 print(f'Optimal = {x.toValue()}')

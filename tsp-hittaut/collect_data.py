@@ -1,8 +1,8 @@
 # https://koncept.orientering.se/provapaaktiviteter/hittaut/skelleftea/
-import os
+from os import makedirs
+from math import radians, sin, cos, atan2, sqrt
 
 import requests
-import math
 import yaml
 
 home_address = 'Kågevägen 24, 93137 Skellefteå'
@@ -12,12 +12,12 @@ near_threshold = 1.0  # in kilometers
 # as the crow flies distance in kilometers between two coordinates
 def haversine(lat1, lon1, lat2, lon2):
     r = 6371  # radius of the earth in kilometers
-    phi1, lambda1 = math.radians(lat1), math.radians(lon1)
-    phi2, lambda2 = math.radians(lat2), math.radians(lon2)
+    phi1, lambda1 = radians(lat1), radians(lon1)
+    phi2, lambda2 = radians(lat2), radians(lon2)
     delta_phi = phi2 - phi1
     delta_lambda = lambda2 - lambda1
-    a = math.sin(delta_phi / 2) ** 2 + math.cos(phi1) * math.cos(phi2) * math.sin(delta_lambda / 2) ** 2
-    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+    a = sin(delta_phi / 2) ** 2 + cos(phi1) * cos(phi2) * sin(delta_lambda / 2) ** 2
+    c = 2 * atan2(sqrt(a), sqrt(1 - a))
     return r * c
 
 
@@ -71,7 +71,7 @@ def main():
                descriptions=[[loc['number'], loc['short_description']] for loc in near_easy_locs],
                coordinates=[[loc['number'], loc['lat'], loc['lng']] for loc in near_easy_locs])
 
-    os.makedirs('scratch', exist_ok=True)
+    makedirs('scratch', exist_ok=True)
     with open('scratch/data.yaml', 'w', encoding='utf-8') as fp:
         yaml.dump(obj, fp, default_flow_style=False, allow_unicode=True)
 
