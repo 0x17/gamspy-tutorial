@@ -23,7 +23,7 @@ def solve_model(locations, distances):
     mtz[i, j].where[(Ord(i) != Ord(j)) & (Ord(i) > 1) & (Ord(j) > 1)] = u[i] - u[j] + Card(i) * x[i, j] <= Card(i) - 1
 
     tsp_mtz = Model(m, 'tsp_mtz',
-                    equations=[leave_once, enter_once, mtz],
+                    equations=m.getEquations(),
                     problem=Problem.MIP,
                     sense=Sense.MIN,
                     objective=Sum((i, j), d[i, j] * x[i, j]))

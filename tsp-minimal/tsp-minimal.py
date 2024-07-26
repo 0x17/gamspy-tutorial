@@ -32,7 +32,7 @@ enter_once[j] = Sum(i.where[Ord(i) != Ord(j)], x[i, j]) == 1
 mtz[i, j].where[(Ord(i) != Ord(j)) & (Ord(i) > 1) & (Ord(j) > 1)] = u[i] - u[j] + Card(i) * x[i, j] <= Card(i) - 1
 
 model = Model(m, 'tsp',
-              equations=[leave_once, enter_once, mtz],
+              equations=m.getEquations(),
               problem=Problem.MIP,
               sense=Sense.MIN,
               objective=Sum((i, j), d[i, j] * x[i, j]))
