@@ -1,6 +1,7 @@
 # https://koncept.orientering.se/provapaaktiviteter/hittaut/skelleftea/
 from os import makedirs
 from math import radians, sin, cos, atan2, sqrt
+from time import sleep
 
 import requests
 import yaml
@@ -44,6 +45,7 @@ def get_walking_distance(start_lat, start_lon, end_lat, end_lon):
     if data["code"] == "Ok":
         dist = data["routes"][0]["distance"]  # in meters
         print(f'Distance from ({start_lat}, {start_lon}) to ({end_lat}, {end_lon}) is {dist}m')
+        sleep(0.3)
         return dist
     else:
         return None
@@ -71,8 +73,8 @@ def main():
                descriptions=[[loc['number'], loc['short_description']] for loc in near_easy_locs],
                coordinates=[[loc['number'], loc['lat'], loc['lng']] for loc in near_easy_locs])
 
-    makedirs('scratch', exist_ok=True)
-    with open('scratch/data.yaml', 'w', encoding='utf-8') as fp:
+    makedirs('data', exist_ok=True)
+    with open('data/data.yaml', 'w', encoding='utf-8') as fp:
         yaml.dump(obj, fp, default_flow_style=False, allow_unicode=True)
 
 

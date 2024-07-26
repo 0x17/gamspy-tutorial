@@ -33,7 +33,7 @@ def solve_model(locations, distances):
 
 
 def main():
-    with open('scratch/data.yaml', encoding='utf-8') as fp:
+    with open('data/data.yaml', encoding='utf-8') as fp:
         data = yaml.safe_load(fp)
 
     arcs = solve_model(data['locations'], data['distances'])
@@ -49,7 +49,7 @@ def main():
     location_seq.append(location_seq[0])
 
     def get_coords(loc_num):
-        return next([lat, lng] for loc, lat, lng in data['coordinates'] if loc == loc_num)
+        return next([lat, lng] for loc, lat, lng in data['coordinates'] if loc == int(loc_num))
 
     route = [get_coords(loc_num) for loc_num in location_seq]
 
@@ -59,6 +59,7 @@ def main():
     folium.PolyLine(route, color="blue", weight=2.5, opacity=1).add_to(m)
 
     m.save("scratch/hitta_tsp_solution.html")
+    m.show_in_browser()
 
 
 if __name__ == '__main__':
