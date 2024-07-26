@@ -33,21 +33,20 @@ def solve_model(locations, distances):
     return [k for k, v in x.toDict().items() if v > 0.0]
 
 
-def succ(arcs, loc_num):
-    return next(b for a, b in arcs if a == loc_num)
-
-
 def main():
     with open('scratch/data.yaml', encoding='utf-8') as fp:
         data = yaml.safe_load(fp)
 
     arcs = solve_model(data['locations'], data['distances'])
 
+    def succ(loc_num):
+        return next(b for a, b in arcs if a == loc_num)
+
     location_seq = [arcs[0][0]]
     cur = arcs[0][1]
     while cur != location_seq[0]:
         location_seq.append(cur)
-        cur = succ(arcs, cur)
+        cur = succ(cur)
     location_seq.append(location_seq[0])
 
     def get_coords(loc_num):

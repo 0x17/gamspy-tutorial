@@ -5,15 +5,15 @@ from gamspy import Container, Set, Alias, Equation, Sum, Model, Problem, Sense, 
 locs = ['A', 'B', 'C', 'D']
 
 adj_mx = [
-    [0, 2, 4, 4 ],
-    [2, 0, 2, 2 ],
-    [4, 2, 0, 2 ],
-    [4, 2, 2, 0 ]
+    [0, 2, 4, 4],
+    [2, 0, 2, 2],
+    [4, 2, 0, 2],
+    [4, 2, 2, 0]
 ]
 dists = [[i_name, j_name, adj_mx[i][j]]
-         for i,i_name in enumerate(locs)
-         for j,j_name in enumerate(locs)
-         if i != j ]
+         for i, i_name in enumerate(locs)
+         for j, j_name in enumerate(locs)
+         if i != j]
 
 m = Container()
 

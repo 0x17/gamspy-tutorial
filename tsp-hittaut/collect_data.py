@@ -34,15 +34,16 @@ def fetch_easy_locations():
 
 def get_lat_long(address):
     data = requests.get(f'https://nominatim.openstreetmap.org/search?q={address}&format=json').json()
-    return dict(lat=float(data[0]['lat']), lng=float(data[0]['lon'])) if data else None
+    coord = dict(lat=float(data[0]['lat']), lng=float(data[0]['lon'])) if data else None
+    print(f'Fetched coordinates {coord} for address "{address}"')
+    return coord
 
 
 def get_walking_distance(start_lat, start_lon, end_lat, end_lon):
-    data = requests.get(
-        f"http://router.project-osrm.org/route/v1/walking/{start_lon},{start_lat};{end_lon},{end_lat}?overview=false").json()
+    data = requests.get(f"http://router.project-osrm.org/route/v1/walking/{start_lon},{start_lat};{end_lon},{end_lat}?overview=false").json()
     if data["code"] == "Ok":
         dist = data["routes"][0]["distance"]  # in meters
-        print(f'Distance = {dist}m')
+        print(f'Distance from ({start_lat}, {start_lon}) to ({end_lat}, {end_lon}) is {dist}m')
         return dist
     else:
         return None
