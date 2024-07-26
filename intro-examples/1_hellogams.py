@@ -2,8 +2,7 @@ import sys
 from gamspy import Container, Variable, Equation, Model, Sense
 m = Container()
 x = Variable(m)
-e = Equation(m)
-e[...] = x == 23
+e = Equation(m, definition=x==23)
 mod = Model(m, 'mymodel',
             equations=[e],
             sense=Sense.MIN,

@@ -1,10 +1,12 @@
 from gamspy import Container, Equation, Model, Parameter, Problem, Sense, Set, Sum, Variable, VariableType
 
+# Data
 items = ['a','b','c', 'd']
 profits = dict(a=3, b=5, c=2, d=4)
 weights = dict(a=4, b=10, c=8, d=5)
 capacity = 15
 
+# Model
 m = Container()
 i = Set(m, "i", records=items)
 p = Parameter(m, "p", domain=i, records=profits.items())
@@ -23,6 +25,7 @@ knapsack = Model(
     objective=Sum(i, p[i] * x[i]),
 )
 
+# Solve and display solution
 knapsack.solve()
 print(f"Utility of choice = {knapsack.objective_value}")
 print(f"Chosen items = {[ item for item, indicator in x.toList() if indicator > 0 ]}")
