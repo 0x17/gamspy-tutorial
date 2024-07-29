@@ -6,17 +6,22 @@ This repository contains multiple GAMSPy models which I plan to show partially e
 
 ## Table of contents (model repository)
 
-* 1. Introductionary examples
+* 1. Warmup (introductionary examples)
   * 1.1. `1_hellogams.py` - hello GAMSPy "minimize free variable x s.t. x==23"
   * 1.2. `2_simplemip.py` - bit less trivial MIP taken from Dr. Alireza Soroudi
   * 1.3. `3_trnsport.py` - GAMS favorite example model taken from Dantzig
 
-* 2. Intermediate examples
+* 2. Technical workouts
+  * 2.1. `1_condfiltering.py` - conditional filtering
+  * 2.2. `1_lagandlead.py` - special operators (lag, lead, card, ord)
+  * 2.3. `1_infeasibilities.py` - investigate infeasibilities
+
+* 3. Intermediate examples
   * 2.1. `1_knapsack.py` - rudimentary binary knapsack model
   * 2.2. `2_scheduling.py` - machine scheduling problem (one stage jobs, unrelated machines, minimize makespan) with Gantt chart (horizontal bars) visualization
   * 2.3. `3_tsp.py` - minimalistic TSP showing the effect of toggling subtour elimination constraints with visualization as directed graph
 
-* 3. TSP for [Hittaut](https://koncept.orientering.se/provapaaktiviteter/hittaut/)
+* 4. TSP for [Hittaut](https://koncept.orientering.se/provapaaktiviteter/hittaut/)
   * 3.1. `collect_data.py` - fetches required exogenous data for model
   * 3.2. `tsp-hittaut.py` - contains actual TSP model and map solution visualization
 
