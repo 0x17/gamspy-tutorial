@@ -17,13 +17,12 @@ This repository contains multiple GAMSPy models which I plan to show partially e
   * 2.3. `1_infeasibilities.py` - investigate infeasibilities
 
 * 3. Intermediate examples
-  * 2.1. `1_knapsack.py` - rudimentary binary knapsack model
-  * 2.2. `2_scheduling.py` - machine scheduling problem (one stage jobs, unrelated machines, minimize makespan) with Gantt chart (horizontal bars) visualization
-  * 2.3. `3_tsp.py` - minimalistic TSP showing the effect of toggling subtour elimination constraints with visualization as directed graph
+  * 3.1. `2_scheduling.py` - machine scheduling problem (one stage jobs, unrelated machines, minimize makespan) with Gantt chart (horizontal bars) visualization
+  * 3.2. `3_tsp.py` - minimalistic TSP showing the effect of toggling subtour elimination constraints with visualization as directed graph
 
 * 4. TSP for [Hittaut](https://koncept.orientering.se/provapaaktiviteter/hittaut/)
-  * 3.1. `collect_data.py` - fetches required exogenous data for model
-  * 3.2. `tsp-hittaut.py` - contains actual TSP model and map solution visualization
+  * 4.1. `collect_data.py` - fetches required exogenous data for model
+  * 4.2. `tsp-hittaut.py` - contains actual TSP model and map solution visualization
 
 ## Setup virtual environment
 
