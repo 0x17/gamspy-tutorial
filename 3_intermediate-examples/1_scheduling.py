@@ -32,17 +32,19 @@ j, m, t = Set(c, 'j', records=jobs), Set(c, 'm', records=machines), Set(c, 't', 
 tau = Alias(c, 'tau', alias_with=t)
 d = Parameter(c, 'd', domain=[j,m], records=duration_triples)
 x = Variable(c, 'x', domain=[j,m,t], description='Job j starts on machine m in period t', type=VariableType.BINARY)
+y = Variable(c, 'y', description='Makespan of the schedule')
 
 each_job_once = Equation(c, 'once', domain=j, definition=Sum((m,t), x[j,m,t]) == 1, description='each job runs once on exactly one machine')
 machine_cap = Equation(c, 'machine_cap', domain=[m,t], description='max. one job (simultaneously) on a specific machine at every point in time')
 machine_cap[m,t] = Sum(j, Sum(tau.where[(Ord(tau) >= Ord(t) - d[j,m] + 1) & (Ord(tau) <= Ord(t))], x[j,m,tau])) <= 1
+makespan = Equation(c, 'makespan', domain=j, definition=y >= Sum((m,t), x[j,m,t] * (Ord(t)+d[j,m])))
 
 scheduling = Model(c, 'scheduling',
                    problem=Problem.MIP,
                    sense=Sense.MIN,
                    equations=c.getEquations(),
                    # minimize makespan
-                   objective=Sum((j,m,t), x[j,m,t] * (Ord(t)+d[j,m])))
+                   objective=y)
 
 # Solve and visualize solution
 scheduling.solve(output=stdout)
