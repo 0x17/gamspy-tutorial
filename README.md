@@ -6,17 +6,18 @@ This repository contains multiple GAMSPy models which I plan to show partially e
 
 ## Table of contents (model repository)
 
-* 1. Warmup (introductionary examples)
+* 1. Interactive warmup (introductionary examples)
   * 1.1. `1_hellogams.py` - hello GAMSPy "minimize free variable x s.t. x==23"
   * 1.2. `2_simplemip.py` - bit less trivial MIP taken from Dr. Alireza Soroudi
-  * 1.3. `3_trnsport.py` - GAMS favorite example model taken from Dantzig
+  * 1.3. `3_knapsack.py` - binary knapsack problem
 
 * 2. Technical workouts
+  * 2.0. `0_modeldataseparation.py` - separation of model formulation and instance input data
   * 2.1. `1_condfiltering.py` - conditional filtering
-  * 2.2. `1_lagandlead.py` - special operators (lag, lead, card, ord)
-  * 2.3. `1_infeasibilities.py` - investigate infeasibilities
+  * 2.2. `2_lagandlead.py` - special operators (lag, lead, card, ord)
+  * 2.3. `3_infeasibilities.py` - investigate infeasibilities
 
-* 3. Intermediate examples
+* 3. Intermediate examples (getting more dangerous)
   * 3.1. `2_scheduling.py` - machine scheduling problem (one stage jobs, unrelated machines, minimize makespan) with Gantt chart (horizontal bars) visualization
   * 3.2. `3_tsp.py` - minimalistic TSP showing the effect of toggling subtour elimination constraints with visualization as directed graph
 
@@ -26,6 +27,11 @@ This repository contains multiple GAMSPy models which I plan to show partially e
 
 ## Setup virtual environment
 
+Get Python interpreter >=3.8
+
+Only install gamspy: `pip install gamspy`
+
+Get extra packages for data processing and visualization:
 ```
 pip install virtualenv
 virtualenv venv
