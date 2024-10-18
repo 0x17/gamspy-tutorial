@@ -1,4 +1,4 @@
-'''
+"""
 A Transportation Problem (TRNSPORT)
 
 This problem finds a least cost shipping schedule that meets
@@ -6,7 +6,7 @@ requirements at markets and supplies at factories.
 
 Dantzig, G B, Chapter 3.3. In Linear Programming and Extensions.
 Princeton University Press, Princeton, New Jersey, 1963.
-'''
+"""
 
 from gamspy import Container, Set, Parameter, Variable, Equation, Model, Sense, VariableType, Sum
 

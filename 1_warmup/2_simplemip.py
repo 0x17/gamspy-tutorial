@@ -15,7 +15,7 @@ mod = Model(m, 'simplemip',
             objective=x+y)
 x.up[...] = 0.3
 mod.solve(output=stdout)
-def rounded(x):
-    return round(x, 4)
-print(f'Objective = {rounded(mod.objective_value)}')
+def rounded(num):
+    return round(num, 4)
+print(f'Objective = {mod.objective_value}')
 print(f'x: {rounded(x.toValue())}, y: {rounded(y.toValue())}')

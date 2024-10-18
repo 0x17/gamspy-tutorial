@@ -23,6 +23,7 @@ def haversine(lat1, lon1, lat2, lon2):
 
 
 def fetch_easy_locations():
+    # broken right now, hopefully works again next summer
     resp = requests.get('https://koncept.orientering.se/api/v1/locations/104/checkpoints/?format=json')
     resp.encoding = 'utf-8'
     locations = resp.json()
@@ -34,7 +35,8 @@ def fetch_easy_locations():
 
 
 def get_lat_long(address):
-    data = requests.get(f'https://nominatim.openstreetmap.org/search?q={address}&format=json').json()
+    response = requests.get(f'https://nominatim.openstreetmap.org/search?q={address}&format=json')
+    data = response.json()
     coord = dict(lat=float(data[0]['lat']), lng=float(data[0]['lon'])) if data else None
     print(f'Fetched coordinates {coord} for address "{address}"')
     return coord
