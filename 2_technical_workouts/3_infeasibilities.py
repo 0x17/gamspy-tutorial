@@ -1,8 +1,8 @@
-from gamspy import Container, Model, Variable, Equation, Sense
-from sys import stdout
-m = Container()
-x = Variable(m, 'x')
-e1 = Equation(m, 'e1', definition=x >= 10)
-e2 = Equation(m, 'e2', definition=x <= 5)
-mod = Model(m, 'mymodel', equations=m.getEquations(), sense=Sense.MAX, objective=x)
-res = mod.solve(output=stdout, solver='CPLEX', solver_options=dict(iis=1))
+import gamspy as gp
+import sys
+with gp.Container() as m:
+    x = gp.Variable()
+    e1 = gp.Equation(definition=x >= 10)
+    e2 = gp.Equation(definition=x <= 5)
+    mod = gp.Model(equations=m.getEquations(), sense="max", objective=x)
+    res = mod.solve(output=sys.stdout, solver='CPLEX', solver_options=dict(iis=1))

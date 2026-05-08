@@ -1,7 +1,7 @@
 from os import makedirs
 from sys import stdout
 
-from gamspy import Container, Equation, Model, Parameter, Problem, Sense, Set, Sum, Variable, VariableType, Ord, Alias
+from gamspy import Container, Equation, Model, Parameter, Problem, Sense, Set, Sum, Variable, Ord, Alias
 
 from bokeh.plotting import figure, show, output_file
 from bokeh.models import ColumnDataSource
@@ -27,21 +27,21 @@ T = sum(max(durations[m][j] for m in range(n_machines)) for j in range(n_jobs) )
 periods = list(range(T))
 
 # Model
-c = Container()
-j, m, t = Set(c, 'j', records=jobs), Set(c, 'm', records=machines), Set(c, 't', records=periods)
-tau = Alias(c, 'tau', alias_with=t)
-d = Parameter(c, 'd', domain=[j,m], records=duration_triples)
-x = Variable(c, 'x', domain=[j,m,t], description='Job j starts on machine m in period t', type=VariableType.BINARY)
-y = Variable(c, 'y', description='Makespan of the schedule')
-
-each_job_once = Equation(c, 'once', domain=j, definition=Sum((m,t), x[j,m,t]) == 1, description='each job runs once on exactly one machine')
-machine_cap = Equation(c, 'machine_cap', domain=[m,t], description='max. one job (simultaneously) on a specific machine at every point in time')
-machine_cap[m,t] = Sum(j, Sum(tau.where[(Ord(tau) >= Ord(t) - d[j,m] + 1) & (Ord(tau) <= Ord(t))], x[j,m,tau])) <= 1
-makespan = Equation(c, 'makespan', domain=j, definition=y >= Sum((m,t), x[j,m,t] * (Ord(t)+d[j,m])))
-
-scheduling = Model(c, 'scheduling',
-                   problem=Problem.MIP,
-                   sense=Sense.MIN,
+with Container() as c:
+    j, m, t = Set(records=jobs), Set(records=machines), Set(records=periods)
+    tau = Alias(alias_with=t)
+    d = Parameter(domain=[j,m], records=duration_triples)
+    x = Variable(domain=[j,m,t], description='Job j starts on machine m in period t', type="binary")
+    y = Variable(description='Makespan of the schedule')
+    each_job_once = Equation(domain=j,
+                             definition=Sum((m,t), x[j,m,t]) == 1,
+                             description='each job runs once on exactly one machine')
+    machine_cap = Equation(domain=[m,t],
+                           description='max. one job (simultaneously) on a specific machine at every point in time')
+    machine_cap[m,t] = Sum(j, Sum(tau.where[(Ord(tau) >= Ord(t) - d[j,m] + 1) & (Ord(tau) <= Ord(t))], x[j,m,tau])) <= 1
+    makespan = Equation(domain=j, definition=y >= Sum((m,t), x[j,m,t] * (Ord(t)+d[j,m])))
+    scheduling = Model(problem="mip",
+                   sense="min",
                    equations=c.getEquations(),
                    # minimize makespan
                    objective=y)
